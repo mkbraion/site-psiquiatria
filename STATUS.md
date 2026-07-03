@@ -5,7 +5,19 @@
 > parou, sem precisar perguntar nada ao usuário.
 
 **Última atualização:** 2026-07-03
-**Estado geral:** ✅ CONCLUÍDO (fase 4 — backend real Node+Express+SQLite, produto vendável)
+**Estado geral:** ✅ CONCLUÍDO (fase 5 — pacote de produção pronto para entrega/venda)
+
+## Fase 5 — Pronto para produção
+
+- [x] Segurança: cabeçalhos (nosniff, X-Frame-Options DENY, Referrer-Policy, Permissions-Policy),
+      trust proxy (cookies Secure atrás de Nginx/Railway), desligamento limpo (SIGINT/SIGTERM)
+- [x] 404: página amigável (404.html) + JSON para /api/*
+- [x] `Dockerfile` + `.dockerignore` + `Procfile` — deploy em qualquer host (volume em /app/dados)
+- [x] `iniciar.bat` — dois cliques no Windows (instala deps, abre navegador, sobe servidor)
+- [x] `npm run backup` — cópia datada do banco em backups/ (gitignored)
+- [x] favicon.svg (ψ em gradiente) em todas as páginas; Open Graph na home
+- [x] robots.txt (bloqueia painel/login/api) + sitemap.xml
+- [x] Verificado após reinício: headers ok, 404 ok, login ok, dados persistidos no SQLite
 
 ## Fase 4 — Backend real (sistema funcional)
 

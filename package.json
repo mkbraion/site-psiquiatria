@@ -5,7 +5,8 @@
   "description": "Site institucional + sistema de gestão (agenda, pacientes, controlados) para consultório de psiquiatria",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "backup": "node scripts/backup.js"
   },
   "engines": {
     "node": ">=22.5"

@@ -190,7 +190,17 @@ function limitaLogin(req, res, next) {
 // ---------- aplicação ----------
 const app = express();
 app.disable("x-powered-by");
+app.set("trust proxy", 1); // cookies Secure funcionam atrás de Nginx/Caddy/Railway
 app.use(express.json({ limit: "200kb" }));
+
+// cabeçalhos de segurança básicos em todas as respostas
+app.use((req, res, next) => {
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  next();
+});
 
 // --- autenticação ---
 app.post("/api/entrar", limitaLogin, (req, res) => {
@@ -356,7 +366,22 @@ app.delete("/api/equipe/:id", exigeSessao, exigePsiquiatra, (req, res) => {
 // --- site público (arquivos estáticos) ---
 app.use(express.static(__dirname, { extensions: ["html"] }));
 
-app.listen(PORTA, () => {
+// rota de API inexistente responde JSON; o resto cai na página 404
+app.use("/api", (req, res) => res.status(404).json({ erro: "Rota não encontrada." }));
+app.use((req, res) => res.status(404).sendFile(path.join(__dirname, "404.html")));
+
+const servidor = app.listen(PORTA, () => {
   console.log(`Consultório no ar: http://localhost:${PORTA}`);
   console.log(`Área restrita:     http://localhost:${PORTA}/login.html`);
 });
+
+// desligamento limpo (Ctrl+C, docker stop, deploy)
+for (const sinal of ["SIGINT", "SIGTERM"]) {
+  process.on(sinal, () => {
+    console.log("Encerrando...");
+    servidor.close(() => {
+      try { db.close(); } catch {}
+      process.exit(0);
+    });
+  });
+}

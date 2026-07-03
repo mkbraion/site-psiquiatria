@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /painel.html
+Disallow: /login.html
+Disallow: /api/
+Allow: /
+
+Sitemap: https://mkbraion.github.io/site-psiquiatria/sitemap.xml
