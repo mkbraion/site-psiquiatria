@@ -5,7 +5,24 @@
 > parou, sem precisar perguntar nada ao usuário.
 
 **Última atualização:** 2026-07-03
-**Estado geral:** ✅ CONCLUÍDO (fase 3 — área restrita com login + agenda + pacientes + controlados)
+**Estado geral:** ✅ CONCLUÍDO (fase 4 — backend real Node+Express+SQLite, produto vendável)
+
+## Fase 4 — Backend real (sistema funcional)
+
+- [x] `server.js` — Express + node:sqlite (Node ≥ 22.5, zero deps nativas; única dep: express)
+  - senhas com scrypt+sal, sessões 8h em cookie HttpOnly/SameSite, rate-limit de login
+  - CRUD /api/pacientes, /api/agenda, /api/controlados — escopo por medico_id NO SERVIDOR
+  - /api/equipe (psiquiatra cria/remove assistentes), /api/senha (trocar a própria)
+  - seed automático no 1º start (SEED_DEMO=0 inicia sem pacientes fictícios)
+  - serve o site público como estático; banco em dados/clinica.db (no .gitignore)
+- [x] `js/api.js` — camada única: detecta servidor (fetch api/eu); sem servidor → modo demo
+      em localStorage (GitHub Pages continua funcionando como demonstração)
+- [x] `js/painel.js` reescrito assíncrono; `js/auth.js` removido
+- [x] Aba 👥 Equipe (só psiquiatras) + botão "Senha" para todos
+- [x] Testado de ponta a ponta na porta 4180: 401s, login, CRUD gravando no SQLite
+      (verificado no arquivo), assistente criada logou e viu os dados do consultório
+      (403 na gestão de equipe), ricardo isolado, modo demo estático ainda ok
+- [x] launch.json: config "site-psiquiatria-app" (node server.js 4180)
 
 ## Fase 3 — Área restrita (demo front-end)
 

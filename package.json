@@ -1,0 +1,16 @@
+{
+  "name": "site-psiquiatria",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site institucional + sistema de gestão (agenda, pacientes, controlados) para consultório de psiquiatria",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=22.5"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

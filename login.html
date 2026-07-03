@@ -45,21 +45,26 @@
     </div>
   </div>
 
-  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
   <script>
     // Já logado? Vai direto ao painel.
-    if (sessaoAtual()) window.location.replace("painel.html");
+    Api.init().then((sessao) => {
+      if (sessao) window.location.replace("painel.html");
+    });
 
-    document.getElementById("form-login").addEventListener("submit", (e) => {
+    document.getElementById("form-login").addEventListener("submit", async (e) => {
       e.preventDefault();
-      const ok = entrar(
-        document.getElementById("usuario").value,
-        document.getElementById("senha").value
-      );
-      if (ok) {
+      const erro = document.getElementById("erro");
+      erro.classList.remove("ativo");
+      try {
+        await Api.entrar(
+          document.getElementById("usuario").value,
+          document.getElementById("senha").value
+        );
         window.location.href = "painel.html";
-      } else {
-        document.getElementById("erro").classList.add("ativo");
+      } catch (ex) {
+        erro.textContent = ex.message || "Usuário ou senha incorretos.";
+        erro.classList.add("ativo");
         document.getElementById("senha").value = "";
         document.getElementById("senha").focus();
       }

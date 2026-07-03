@@ -22,22 +22,21 @@
         <div class="nome" id="usuario-nome"></div>
         <span class="badge-papel" id="usuario-papel"></span>
       </div>
-      <button class="btn-sair" onclick="sair()">Sair</button>
+      <button class="btn-sair" onclick="abrirTrocaSenha()">Senha</button>
+      <button class="btn-sair" onclick="sairDoPainel()">Sair</button>
     </div>
   </div>
 </header>
 
 <main class="painel-main">
 
-  <div class="aviso-demo">
-    ⚠️ <strong>Ambiente de demonstração.</strong> Os dados abaixo são fictícios e ficam salvos apenas neste navegador.
-    Não insira dados reais de pacientes — um sistema real exige servidor seguro, criptografia e conformidade com a LGPD.
-  </div>
+  <div class="aviso-demo" id="banner-modo">Carregando…</div>
 
   <div class="abas" role="tablist">
     <button class="aba-btn ativa" data-aba="agenda" role="tab">📅 Agenda</button>
     <button class="aba-btn" data-aba="pacientes" role="tab">🧑‍⚕️ Pacientes</button>
     <button class="aba-btn" data-aba="controlados" role="tab">💊 Remédios controlados</button>
+    <button class="aba-btn" data-aba="equipe" role="tab" id="btn-aba-equipe" hidden>👥 Equipe</button>
   </div>
 
   <!-- ===== AGENDA ===== -->
@@ -80,6 +79,20 @@
       <table class="tabela">
         <thead><tr><th>Numeração</th><th>Medicamento</th><th>Tipo de receita</th><th>Paciente</th><th>Data</th><th>Ações</th></tr></thead>
         <tbody id="lista-controlados"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== EQUIPE (apenas psiquiatras) ===== -->
+  <section class="aba-secao" id="aba-equipe">
+    <div class="aba-cabeca">
+      <h2>Equipe do consultório</h2>
+      <button class="btn" onclick="abrirNovoAssistente()">+ Nova assistente</button>
+    </div>
+    <div class="tabela-envolve">
+      <table class="tabela">
+        <thead><tr><th>Usuário</th><th>Nome</th><th>Papel</th><th>Ações</th></tr></thead>
+        <tbody id="lista-equipe"></tbody>
       </table>
     </div>
   </section>
@@ -202,7 +215,52 @@
   </form>
 </dialog>
 
-<script src="js/auth.js"></script>
+<!-- ===== Modal: nova assistente ===== -->
+<dialog class="modal" id="modal-assistente">
+  <form class="modal-conteudo" id="form-assistente" method="dialog">
+    <h3>Nova assistente</h3>
+    <div class="form-grupo">
+      <label>Nome completo</label>
+      <input type="text" name="nome" required>
+    </div>
+    <div class="form-linha2">
+      <div class="form-grupo">
+        <label>Usuário (login)</label>
+        <input type="text" name="usuario" placeholder="ex.: mariana" required>
+      </div>
+      <div class="form-grupo">
+        <label>Senha inicial</label>
+        <input type="password" name="senha" minlength="6" required>
+      </div>
+    </div>
+    <p class="texto-suave" style="font-size:0.85rem">A assistente terá acesso à agenda, aos pacientes e ao receituário <strong>deste consultório apenas</strong>.</p>
+    <div class="modal-acoes">
+      <button type="button" class="btn btn-claro" onclick="fechar('modal-assistente')">Cancelar</button>
+      <button type="submit" class="btn">Criar acesso</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- ===== Modal: trocar a própria senha ===== -->
+<dialog class="modal" id="modal-senha">
+  <form class="modal-conteudo" id="form-senha" method="dialog">
+    <h3>Alterar minha senha</h3>
+    <div class="form-grupo">
+      <label>Senha atual</label>
+      <input type="password" name="atual" required>
+    </div>
+    <div class="form-grupo">
+      <label>Nova senha (mín. 6 caracteres)</label>
+      <input type="password" name="nova" minlength="6" required>
+    </div>
+    <div class="modal-acoes">
+      <button type="button" class="btn btn-claro" onclick="fechar('modal-senha')">Cancelar</button>
+      <button type="submit" class="btn">Salvar nova senha</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="js/api.js"></script>
 <script src="js/painel.js"></script>
 </body>
 </html>
