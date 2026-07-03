@@ -5,7 +5,21 @@
 > parou, sem precisar perguntar nada ao usuário.
 
 **Última atualização:** 2026-07-03
-**Estado geral:** ✅ CONCLUÍDO (fase 2 — redesign moderno + dados fictícios + GitHub)
+**Estado geral:** ✅ CONCLUÍDO (fase 3 — área restrita com login + agenda + pacientes + controlados)
+
+## Fase 3 — Área restrita (demo front-end)
+
+- [x] `login.html` + `js/auth.js` — 3 contas demo (alessandra/carla/ricardo, senha demo123),
+      sessão em sessionStorage, guarda de acesso no painel
+- [x] `painel.html` + `js/painel.js` + `css/painel.css` — abas Agenda / Pacientes / Controlados
+- [x] Pacientes: nome, CPF, RG, telefone, nascimento (idade calculada), medicamentos dinâmicos
+      com flag "controlado", ficha completa, CRUD com modais `<dialog>`
+- [x] Agenda: consultas com paciente/data/hora/tipo, concluir/reabrir/excluir, resumo do dia
+- [x] Controlados: receituário A/B/C com numeração + contagem de pacientes em uso
+- [x] Escopo por medicoId: cada consultório vê só os próprios dados (testado: ricardo não vê
+      dados da alessandra); assistente compartilha o escopo do médico dela
+- [x] Link "🔒 Área restrita" no rodapé de todas as páginas públicas
+- [x] Verificado no preview: senha errada rejeitada, login ok, CRUD de paciente, escopo, guarda
 
 ## Checklist
 

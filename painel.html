@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel da Equipe | Dra. Alessandra Menezes — Psiquiatria</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/painel.css">
+</head>
+<body class="painel-corpo">
+
+<header class="painel-topo">
+  <div class="painel-topo-inner">
+    <a class="logo" href="index.html">Área da Equipe<span>Psiquiatria</span></a>
+    <div class="painel-usuario">
+      <div class="painel-avatar" id="avatar"></div>
+      <div>
+        <div class="nome" id="usuario-nome"></div>
+        <span class="badge-papel" id="usuario-papel"></span>
+      </div>
+      <button class="btn-sair" onclick="sair()">Sair</button>
+    </div>
+  </div>
+</header>
+
+<main class="painel-main">
+
+  <div class="aviso-demo">
+    ⚠️ <strong>Ambiente de demonstração.</strong> Os dados abaixo são fictícios e ficam salvos apenas neste navegador.
+    Não insira dados reais de pacientes — um sistema real exige servidor seguro, criptografia e conformidade com a LGPD.
+  </div>
+
+  <div class="abas" role="tablist">
+    <button class="aba-btn ativa" data-aba="agenda" role="tab">📅 Agenda</button>
+    <button class="aba-btn" data-aba="pacientes" role="tab">🧑‍⚕️ Pacientes</button>
+    <button class="aba-btn" data-aba="controlados" role="tab">💊 Remédios controlados</button>
+  </div>
+
+  <!-- ===== AGENDA ===== -->
+  <section class="aba-secao ativa" id="aba-agenda">
+    <div class="resumo-grid" id="resumo-agenda"></div>
+    <div class="aba-cabeca">
+      <h2>Consultas agendadas</h2>
+      <button class="btn" onclick="abrirNovaConsulta()">+ Nova consulta</button>
+    </div>
+    <div class="tabela-envolve">
+      <table class="tabela">
+        <thead><tr><th>Data</th><th>Hora</th><th>Paciente</th><th>Tipo</th><th>Status</th><th>Ações</th></tr></thead>
+        <tbody id="lista-agenda"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== PACIENTES ===== -->
+  <section class="aba-secao" id="aba-pacientes">
+    <div class="aba-cabeca">
+      <h2>Pacientes</h2>
+      <button class="btn" onclick="abrirNovoPaciente()">+ Novo paciente</button>
+    </div>
+    <div class="tabela-envolve">
+      <table class="tabela">
+        <thead><tr><th>Nome</th><th>Idade</th><th>CPF</th><th>Telefone</th><th>Medicamentos</th><th>Ações</th></tr></thead>
+        <tbody id="lista-pacientes"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== CONTROLADOS ===== -->
+  <section class="aba-secao" id="aba-controlados">
+    <div class="resumo-grid" id="resumo-controlados"></div>
+    <div class="aba-cabeca">
+      <h2>Receituário de controlados</h2>
+      <button class="btn" onclick="abrirNovaReceita()">+ Registrar receita</button>
+    </div>
+    <div class="tabela-envolve">
+      <table class="tabela">
+        <thead><tr><th>Numeração</th><th>Medicamento</th><th>Tipo de receita</th><th>Paciente</th><th>Data</th><th>Ações</th></tr></thead>
+        <tbody id="lista-controlados"></tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== Modal: paciente (novo/editar) ===== -->
+<dialog class="modal" id="modal-paciente">
+  <form class="modal-conteudo" id="form-paciente" method="dialog">
+    <h3 id="modal-paciente-titulo">Novo paciente</h3>
+    <input type="hidden" name="id">
+    <div class="form-grupo">
+      <label>Nome completo</label>
+      <input type="text" name="nome" required>
+    </div>
+    <div class="form-linha2">
+      <div class="form-grupo">
+        <label>CPF</label>
+        <input type="text" name="cpf" placeholder="000.000.000-00" required>
+      </div>
+      <div class="form-grupo">
+        <label>RG</label>
+        <input type="text" name="rg" placeholder="0000000000">
+      </div>
+    </div>
+    <div class="form-linha2">
+      <div class="form-grupo">
+        <label>Telefone</label>
+        <input type="text" name="telefone" placeholder="(00) 00000-0000" required>
+      </div>
+      <div class="form-grupo">
+        <label>Data de nascimento</label>
+        <input type="date" name="nascimento" required>
+      </div>
+    </div>
+    <div class="form-grupo">
+      <label>Medicamentos em uso</label>
+      <div id="meds-container"></div>
+      <button type="button" class="btn-mini" onclick="adicionarLinhaMed()">+ adicionar medicamento</button>
+    </div>
+    <div class="form-grupo">
+      <label>Observações clínicas</label>
+      <textarea name="obs" rows="2"></textarea>
+    </div>
+    <div class="modal-acoes">
+      <button type="button" class="btn btn-claro" onclick="fechar('modal-paciente')">Cancelar</button>
+      <button type="submit" class="btn">Salvar</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- ===== Modal: ficha do paciente ===== -->
+<dialog class="modal" id="modal-ficha">
+  <div class="modal-conteudo" id="ficha-conteudo"></div>
+</dialog>
+
+<!-- ===== Modal: nova consulta ===== -->
+<dialog class="modal" id="modal-consulta">
+  <form class="modal-conteudo" id="form-consulta" method="dialog">
+    <h3>Nova consulta</h3>
+    <div class="form-grupo">
+      <label>Paciente</label>
+      <select name="pacienteId" id="select-paciente-agenda" required></select>
+    </div>
+    <div class="form-linha2">
+      <div class="form-grupo">
+        <label>Data</label>
+        <input type="date" name="data" required>
+      </div>
+      <div class="form-grupo">
+        <label>Hora</label>
+        <input type="time" name="hora" required>
+      </div>
+    </div>
+    <div class="form-grupo">
+      <label>Tipo</label>
+      <select name="tipo"><option>Presencial</option><option>Online</option></select>
+    </div>
+    <div class="modal-acoes">
+      <button type="button" class="btn btn-claro" onclick="fechar('modal-consulta')">Cancelar</button>
+      <button type="submit" class="btn">Agendar</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- ===== Modal: nova receita controlada ===== -->
+<dialog class="modal" id="modal-receita">
+  <form class="modal-conteudo" id="form-receita" method="dialog">
+    <h3>Registrar receita de controlado</h3>
+    <div class="form-grupo">
+      <label>Paciente</label>
+      <select name="pacienteId" id="select-paciente-receita" required></select>
+    </div>
+    <div class="form-grupo">
+      <label>Medicamento e dose</label>
+      <input type="text" name="medicamento" placeholder="Ex.: Clonazepam 0,5 mg" required>
+    </div>
+    <div class="form-linha2">
+      <div class="form-grupo">
+        <label>Tipo de receita</label>
+        <select name="tipo">
+          <option>A — Amarela (entorpecentes)</option>
+          <option>B — Azul (psicotrópicos)</option>
+          <option>C — Branca (controle especial)</option>
+        </select>
+      </div>
+      <div class="form-grupo">
+        <label>Data de emissão</label>
+        <input type="date" name="data" required>
+      </div>
+    </div>
+    <div class="form-grupo">
+      <label>Numeração da receita</label>
+      <input type="text" name="numeracao" placeholder="Ex.: B2-0045871" required>
+    </div>
+    <div class="modal-acoes">
+      <button type="button" class="btn btn-claro" onclick="fechar('modal-receita')">Cancelar</button>
+      <button type="submit" class="btn">Registrar</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="js/auth.js"></script>
+<script src="js/painel.js"></script>
+</body>
+</html>

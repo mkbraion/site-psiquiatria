@@ -1,0 +1,337 @@
+/* ============================================================
+   Área restrita (login + painel) — estilos próprios
+   Reaproveita as variáveis definidas em styles.css
+   ============================================================ */
+
+/* ===== Tela de login ===== */
+.login-corpo {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.login-caixa {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+}
+.login-card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 26px;
+  padding: 38px 34px;
+  box-shadow: var(--sombra-alta);
+}
+.login-card .logo { display: inline-block; margin-bottom: 6px; }
+.login-card h1 { font-size: 1.5rem; margin: 10px 0 4px; }
+.login-card > p { color: var(--texto-suave); font-size: 0.95rem; }
+.login-erro {
+  display: none;
+  background: #fdecec;
+  border: 1px solid #f3b8b8;
+  color: #a33;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  margin-bottom: 14px;
+}
+.login-erro.ativo { display: block; }
+.login-demo {
+  margin-top: 18px;
+  background: var(--verde-claro);
+  border-radius: 16px;
+  padding: 16px 18px;
+  font-size: 0.85rem;
+}
+.login-demo strong { color: var(--verde-escuro); }
+.login-demo code {
+  background: #fff;
+  border-radius: 6px;
+  padding: 1px 7px;
+  font-size: 0.82rem;
+}
+.login-voltar { display: inline-block; margin-top: 16px; font-size: 0.9rem; }
+
+/* ===== Aviso de demonstração ===== */
+.aviso-demo {
+  background: #fff7e0;
+  border: 1px solid #f0dfa8;
+  color: #7a6420;
+  border-radius: 14px;
+  padding: 12px 18px;
+  font-size: 0.88rem;
+  margin-bottom: 22px;
+}
+
+/* ===== Estrutura do painel ===== */
+.painel-corpo { background: var(--fundo); min-height: 100vh; }
+.painel-topo {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--borda);
+}
+.painel-topo-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.painel-usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+.painel-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--grad);
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+.painel-usuario .nome { font-weight: 600; line-height: 1.2; }
+.badge-papel {
+  display: inline-block;
+  background: var(--verde-claro);
+  color: var(--verde-escuro);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+.btn-sair {
+  background: #fff;
+  border: 1.5px solid var(--borda);
+  border-radius: 999px;
+  padding: 9px 20px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--texto);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-sair:hover { border-color: #d88; color: #a33; }
+
+.painel-main { max-width: 1100px; margin: 0 auto; padding: 28px 22px 80px; }
+
+/* ===== Abas ===== */
+.abas {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 26px;
+  flex-wrap: wrap;
+}
+.aba-btn {
+  background: #fff;
+  border: 1.5px solid var(--borda);
+  border-radius: 999px;
+  padding: 11px 24px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.93rem;
+  color: var(--texto-suave);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.aba-btn:hover { border-color: var(--verde-2); color: var(--verde-escuro); }
+.aba-btn.ativa {
+  background: var(--grad);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(62, 107, 92, 0.3);
+}
+.aba-secao { display: none; }
+.aba-secao.ativa { display: block; animation: abaEntra 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes abaEntra {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+.aba-cabeca {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.aba-cabeca h2 { margin: 0; font-size: 1.4rem; }
+.aba-cabeca .btn { padding: 11px 22px; font-size: 0.92rem; }
+
+/* ===== Tabelas ===== */
+.tabela-envolve {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 18px;
+  box-shadow: var(--sombra);
+  overflow-x: auto;
+}
+.tabela { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-width: 640px; }
+.tabela th {
+  text-align: left;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--texto-suave);
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--borda);
+  background: #fbfcfa;
+}
+.tabela td { padding: 14px 18px; border-bottom: 1px solid var(--borda); vertical-align: top; }
+.tabela tr:last-child td { border-bottom: none; }
+.tabela tr:hover td { background: #f7faf8; }
+
+.chip {
+  display: inline-block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 3px 11px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.chip-controlado { background: #fdecec; color: #a33; }
+.chip-comum { background: var(--verde-claro); color: var(--verde-escuro); }
+.chip-online { background: #e7f0fd; color: #2c5aa0; }
+.chip-presencial { background: var(--verde-claro); color: var(--verde-escuro); }
+.chip-concluida { background: #eee; color: #666; text-decoration: line-through; }
+
+.acoes-linha { display: flex; gap: 6px; flex-wrap: wrap; }
+.btn-mini {
+  background: #fff;
+  border: 1.5px solid var(--borda);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--texto);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-mini:hover { border-color: var(--verde-2); color: var(--verde-escuro); }
+.btn-mini.perigo:hover { border-color: #d88; color: #a33; }
+
+.vazio {
+  text-align: center;
+  color: var(--texto-suave);
+  padding: 44px 20px;
+  font-size: 0.95rem;
+}
+
+/* ===== Cartões de resumo ===== */
+.resumo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.resumo-card {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: var(--sombra);
+}
+.resumo-card .num {
+  font-family: "Sora", sans-serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: block;
+  line-height: 1.2;
+}
+.resumo-card .rotulo { font-size: 0.82rem; color: var(--texto-suave); }
+
+/* ===== Diálogos (modais) ===== */
+dialog.modal {
+  border: none;
+  border-radius: 22px;
+  padding: 0;
+  width: min(560px, calc(100vw - 32px));
+  box-shadow: var(--sombra-alta);
+}
+dialog.modal::backdrop { background: rgba(34, 61, 51, 0.45); backdrop-filter: blur(3px); }
+.modal-conteudo { padding: 30px 30px 26px; max-height: 82vh; overflow-y: auto; }
+.modal-conteudo h3 { font-size: 1.25rem; margin-bottom: 18px; }
+.modal-acoes { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+.modal-acoes .btn { padding: 11px 24px; font-size: 0.92rem; }
+
+.form-linha2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 560px) { .form-linha2 { grid-template-columns: 1fr; } }
+
+/* Medicamentos dinâmicos no formulário do paciente */
+.med-linha {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr auto auto;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.med-linha input[type="text"] {
+  padding: 10px 12px;
+  border: 1.5px solid var(--borda);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  width: 100%;
+}
+.med-linha label.ctrl {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  color: var(--texto-suave);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.med-remove {
+  background: none;
+  border: none;
+  color: #a33;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+@media (max-width: 560px) {
+  .med-linha { grid-template-columns: 1fr 1fr; }
+}
+
+/* Ficha do paciente (visualização) */
+.ficha-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 20px;
+  margin-bottom: 16px;
+}
+.ficha-grid div { font-size: 0.92rem; }
+.ficha-grid .rotulo {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--texto-suave);
+  margin-bottom: 2px;
+}
+.ficha-meds li { margin-bottom: 6px; font-size: 0.92rem; }
+.ficha-meds { list-style: none; padding: 0; }

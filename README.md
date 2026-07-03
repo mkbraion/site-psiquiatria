@@ -15,11 +15,32 @@ Site institucional estático (HTML/CSS/JS puro, sem build) para consultório de 
 - **Formulário sem backend**: monta a mensagem e abre no WhatsApp
 - **FAQ em accordion nativo** (`<details>/<summary>`), sem JavaScript
 
+## Área restrita (demo de sistema interno)
+
+Acesse pelo link "🔒 Área restrita" no rodapé ou por `login.html`. Cada membro da equipe tem seu
+próprio login, e **cada consultório só enxerga os próprios dados** (pacientes, agenda e receituário
+são filtrados pelo médico responsável):
+
+| Usuário | Senha | Papel |
+|---|---|---|
+| `alessandra` | `demo123` | Psiquiatra |
+| `carla` | `demo123` | Assistente da Dra. Alessandra (vê os mesmos dados dela) |
+| `ricardo` | `demo123` | Outro psiquiatra — dados totalmente separados |
+
+Abas do painel: **Agenda** (consultas com status), **Pacientes** (nome, CPF, RG, telefone,
+nascimento com idade calculada, medicamentos com marcação de controlado, ficha completa) e
+**Remédios controlados** (receituário A/B/C com numeração).
+
+> ⚠️ **É uma simulação 100% front-end**: usuários definidos em `js/auth.js` e dados fictícios
+> em `localStorage`. Serve para demonstrar UX/fluxo. Um sistema real com dados de pacientes
+> (dados sensíveis — LGPD) exige backend com autenticação segura, criptografia e auditoria.
+
 ## Páginas
 
 | Arquivo | Conteúdo |
 |---|---|
 | `index.html` | Home: hero com chips flutuantes, estatísticas animadas, áreas de atuação, CTA |
+| `login.html` / `painel.html` | Área restrita da equipe (demo): agenda, pacientes, controlados |
 | `sobre.html` | A Profissional: bio, formação, CRM/RQE, filosofia de cuidado |
 | `tratamentos.html` | Ansiedade/Burnout, Depressão, TDAH, Sono, Transtornos Alimentares |
 | `atendimento.html` | Presencial + telemedicina, primeira consulta passo a passo, reembolso, mapa |

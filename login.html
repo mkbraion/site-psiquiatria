@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área Restrita — Login | Dra. Alessandra Menezes</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/painel.css">
+</head>
+<body class="login-corpo">
+
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+
+  <div class="login-caixa">
+    <div class="login-card">
+      <a class="logo" href="index.html">Dra. Alessandra Menezes<span>Psiquiatria</span></a>
+      <h1>Área restrita</h1>
+      <p>Acesso exclusivo para a equipe do consultório — psiquiatras e assistentes, cada um com seu próprio login.</p>
+
+      <div class="login-erro" id="erro">Usuário ou senha incorretos. Tente novamente.</div>
+
+      <form id="form-login">
+        <div class="form-grupo">
+          <label for="usuario">Usuário</label>
+          <input type="text" id="usuario" name="usuario" required autocomplete="username" autofocus>
+        </div>
+        <div class="form-grupo">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" required autocomplete="current-password">
+        </div>
+        <button class="btn" type="submit" style="width:100%">Entrar</button>
+      </form>
+
+      <div class="login-demo">
+        <strong>🔑 Contas de demonstração</strong> (senha: <code>demo123</code>)<br>
+        <code>alessandra</code> — psiquiatra · <code>carla</code> — assistente da Dra. Alessandra · <code>ricardo</code> — outro psiquiatra (dados separados)
+      </div>
+
+      <a class="login-voltar" href="index.html">← Voltar ao site</a>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script>
+    // Já logado? Vai direto ao painel.
+    if (sessaoAtual()) window.location.replace("painel.html");
+
+    document.getElementById("form-login").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const ok = entrar(
+        document.getElementById("usuario").value,
+        document.getElementById("senha").value
+      );
+      if (ok) {
+        window.location.href = "painel.html";
+      } else {
+        document.getElementById("erro").classList.add("ativo");
+        document.getElementById("senha").value = "";
+        document.getElementById("senha").focus();
+      }
+    });
+  </script>
+</body>
+</html>
