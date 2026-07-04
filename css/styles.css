@@ -271,21 +271,23 @@ img { max-width: 100%; display: block; }
 .selo {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid var(--borda);
-  color: var(--verde-escuro);
-  font-size: 0.78rem;
+  gap: 13px;
+  color: var(--verde);
+  font-size: 0.76rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding: 8px 16px;
-  border-radius: 999px;
-  margin-bottom: 20px;
-  box-shadow: var(--sombra);
+  margin-bottom: 24px;
 }
-.selo::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--whats); }
-.hero h1 { margin-bottom: 18px; }
+.selo::before { content: ""; width: 32px; height: 1.5px; background: var(--verde); flex: none; }
+.hero h1 {
+  font-family: "Fraunces", "Lora", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(2.4rem, 5.2vw, 3.7rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
 .hero p.destaque { font-size: 1.14rem; color: var(--texto-suave); margin-bottom: 30px; max-width: 33rem; }
 .hero-acoes { display: flex; gap: 14px; flex-wrap: wrap; }
 
@@ -323,6 +325,9 @@ img { max-width: 100%; display: block; }
 
 .hero-chip {
   position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.9);
@@ -335,6 +340,7 @@ img { max-width: 100%; display: block; }
   animation: chipFlutua 5s ease-in-out infinite alternate;
   z-index: 2;
 }
+.hero-chip svg { width: 17px; height: 17px; color: var(--verde); flex: none; }
 .chip-1 { top: 8%; left: -6%; }
 .chip-2 { bottom: 10%; right: -4%; animation-delay: -2.5s; }
 @keyframes chipFlutua {
@@ -404,17 +410,21 @@ img { max-width: 100%; display: block; }
   border-color: var(--verde-2);
 }
 .card .icone {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
-  background: var(--grad);
+  width: 56px;
+  height: 56px;
+  border-radius: 50% 50% 50% 10px;
+  background: var(--verde-claro);
+  color: var(--verde);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.45rem;
-  margin-bottom: 16px;
-  box-shadow: 0 6px 16px rgba(62, 107, 92, 0.25);
+  margin-bottom: 18px;
+  font-family: "Fraunces", "Lora", Georgia, serif;
+  font-size: 1.55rem;
+  font-weight: 600;
 }
+.card .icone svg { width: 28px; height: 28px; }
+.card:hover .icone { background: var(--verde); color: #fff; transition: background 0.3s, color 0.3s; }
 .card p { color: var(--texto-suave); font-size: 0.95rem; margin-bottom: 0; }
 .card .link-mais { display: inline-block; margin-top: 14px; font-weight: 600; font-size: 0.92rem; text-decoration: none; }
 .card .link-mais:hover { text-decoration: underline; }
