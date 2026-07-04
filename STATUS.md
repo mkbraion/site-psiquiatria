@@ -17,6 +17,14 @@
 - PENDENTE (recomendado): trocar as senhas demo123 no painel (botão "Senha"); personalizar
   nome/CRM/contatos para o cliente final; SEED_DEMO=0 se quiser começar sem pacientes fictícios.
 
+## Fase 7 — Redesign do cabeçalho (menos "cara de IA")
+- Menu em voz pessoal: Início · Quem sou · Como ajudo · A consulta · Reflexões · Dúvidas · Vamos conversar
+- Barra editorial (removida a "pílula" flutuante glassmorphism); hairline no scroll
+- Marca com monograma ψ (gradiente) + wordmark em serifa Fraunces (adicionada ao link de fontes)
+- Nav com sublinhado animado; CTA "Vamos conversar" retangular com seta →
+- H1 de contato.html → "Vamos conversar"; labels trocados também no rodapé (consistência)
+- Verificado por inspect (screenshots do preview travando por animações) + confirmado no ar em produção
+
 ## Fase 6 — Hospedagem grátis (Render + Turso)
 
 - [x] server.js refatorado para camada de banco dual: TURSO_DATABASE_URL definida → @libsql/client
