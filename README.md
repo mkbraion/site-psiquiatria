@@ -56,13 +56,32 @@ O painel (`js/api.js`) detecta onde está rodando:
 - **Hospedagem estática** (ex.: GitHub Pages): cai no **modo demonstração** — simulação em
   `localStorage`, com aviso na tela. Útil para mostrar o produto a clientes sem custo.
 
-### Publicando o sistema completo (para vender)
+### Hospedagem GRÁTIS (Render + Turso) — passo a passo
 
-Qualquer hospedagem que rode **Node.js ≥ 22.5** com disco persistente serve:
+Hospedagens grátis não têm disco permanente, então o banco vai para o **Turso**
+(SQLite na nuvem, plano grátis generoso). O servidor detecta sozinho: com as variáveis
+`TURSO_DATABASE_URL`/`TURSO_AUTH_TOKEN` usa a nuvem; sem elas, usa o arquivo local.
+As duas contas são grátis, com **login via GitHub e sem cartão de crédito**:
+
+1. **Turso** (banco): crie conta em [turso.tech](https://turso.tech) → *Create Database*
+   (região `gru` = São Paulo) → copie a **URL** (`libsql://...`) e gere um **token** (*Create Token*).
+2. **Render** (servidor): crie conta em [render.com](https://render.com) → *New → Blueprint* →
+   conecte o repositório `mkbraion/site-psiquiatria` (o arquivo `render.yaml` configura tudo) →
+   cole as duas variáveis do Turso quando o painel pedir → *Apply*.
+3. Em ~2 minutos o site inteiro (público + painel) estará em `https://site-psiquiatria.onrender.com`
+   com HTTPS automático.
+
+**Limitação do plano grátis do Render:** o servidor "dorme" após 15 min sem visitas e o
+primeiro acesso seguinte demora ~50 s para acordar. Os dados ficam intactos no Turso.
+Para eliminar isso depois: Render Starter (~US$ 7/mês) ou uma VPS.
+
+### Publicando em hospedagem paga (entrega a cliente)
 
 1. **VPS** (Hostinger, Contabo, DigitalOcean — a partir de ~R$ 20/mês): `git clone`, `npm install`,
    rode com `pm2 start server.js` e coloque Nginx/Caddy na frente com HTTPS (obrigatório).
-2. **Railway / Fly.io**: deploy pelo git; anexe um *volume* persistente montado em `dados/`.
+   Sem Turso: o banco fica no arquivo local `dados/clinica.db` (faça backup com `npm run backup`).
+2. **Railway / Fly.io**: deploy pelo git; anexe um *volume* persistente montado em `dados/`,
+   ou use o mesmo Turso.
 3. O site público continua igual; a única exigência do painel é o processo Node no ar.
 
 **Checklist por cliente:** trocar nome/CRM/contatos nos HTML, criar o usuário do médico no banco,

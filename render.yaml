@@ -1,0 +1,21 @@
+# Blueprint do Render — hospedagem GRÁTIS do sistema completo
+# Como usar: crie conta no render.com (login com GitHub, sem cartão),
+# clique em New > Blueprint, escolha este repositório e informe as duas
+# variáveis do Turso quando o painel pedir.
+services:
+  - type: web
+    name: site-psiquiatria
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: SEED_DEMO
+        value: "1"
+      - key: TURSO_DATABASE_URL
+        sync: false # cole aqui a URL do banco criado no turso.tech (libsql://...)
+      - key: TURSO_AUTH_TOKEN
+        sync: false # cole aqui o token gerado no painel do Turso

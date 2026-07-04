@@ -5,7 +5,19 @@
 > parou, sem precisar perguntar nada ao usuário.
 
 **Última atualização:** 2026-07-03
-**Estado geral:** ✅ CONCLUÍDO (fase 5 — pacote de produção pronto para entrega/venda)
+**Estado geral:** ✅ CÓDIGO PRONTO (fase 6 — hospedagem grátis preparada; falta só o usuário criar
+as contas Turso + Render e informar/colar as 2 variáveis — ver README "Hospedagem GRÁTIS")
+
+## Fase 6 — Hospedagem grátis (Render + Turso)
+
+- [x] server.js refatorado para camada de banco dual: TURSO_DATABASE_URL definida → @libsql/client
+      (nuvem, async); sem a variável → node:sqlite local. Todas as rotas assíncronas + tratador de erros
+- [x] `render.yaml` (blueprint: plan free, NODE_VERSION 24, envvars Turso com sync:false)
+- [x] Dependência @libsql/client adicionada
+- [x] Regressão local completa: 13/13 testes de API passaram (auth, CRUD, cascata, equipe, escopo, 404)
+- [ ] PENDENTE (ação do usuário): conta turso.tech (criar DB região gru + token) e conta render.com
+      (New > Blueprint > repo mkbraion/site-psiquiatria > colar as 2 variáveis)
+- [ ] Depois do deploy: testar login em produção e trocar senhas demo123
 
 ## Fase 5 — Pronto para produção
 
