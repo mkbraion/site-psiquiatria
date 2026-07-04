@@ -17,7 +17,11 @@ const path = require("path");
 const PORTA = Number(process.argv[2]) || Number(process.env.PORT) || 3000;
 const DURACAO_SESSAO_MS = 8 * 60 * 60 * 1000; // 8 horas
 const SEMEAR_DEMO = process.env.SEED_DEMO !== "0";
-const USANDO_TURSO = Boolean(process.env.TURSO_DATABASE_URL);
+// .trim() remove espaços/quebras de linha que entram junto no copiar/colar
+// das variáveis (causa comum de erro 400 de autenticação no Turso)
+const TURSO_URL = (process.env.TURSO_DATABASE_URL || "").trim();
+const TURSO_TOKEN = (process.env.TURSO_AUTH_TOKEN || "").trim();
+const USANDO_TURSO = Boolean(TURSO_URL);
 
 // ---------- camada de banco (Turso na nuvem OU SQLite local) ----------
 let bd; // { consulta(sql,args)=>rows, executa(sql,args)=>{changes}, fecha() }
@@ -30,10 +34,7 @@ async function iniciarBanco() {
   let cliente;
 
   if (USANDO_TURSO) {
-    cliente = createClient({
-      url: process.env.TURSO_DATABASE_URL,
-      authToken: process.env.TURSO_AUTH_TOKEN,
-    });
+    cliente = createClient({ url: TURSO_URL, authToken: TURSO_TOKEN });
     console.log("Banco: Turso (nuvem).");
   } else {
     const fs = require("fs");
