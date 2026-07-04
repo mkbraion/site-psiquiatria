@@ -15,9 +15,14 @@ as contas Turso + Render e informar/colar as 2 variáveis — ver README "Hosped
 - [x] `render.yaml` (blueprint: plan free, NODE_VERSION 24, envvars Turso com sync:false)
 - [x] Dependência @libsql/client adicionada
 - [x] Regressão local completa: 13/13 testes de API passaram (auth, CRUD, cascata, equipe, escopo, 404)
-- [ ] PENDENTE (ação do usuário): conta turso.tech (criar DB região gru + token) e conta render.com
-      (New > Blueprint > repo mkbraion/site-psiquiatria > colar as 2 variáveis)
-- [ ] Depois do deploy: testar login em produção e trocar senhas demo123
+- [x] Turso: banco criado (libsql://psiquiatria-mkbraion.aws-us-east-1.turso.io, região Virginia)
+- [x] Render: Blueprint conectado ao repo (ID exs-d947m76q1p3s73b19fv0)
+- [x] 1º deploy FALHOU (exit 1 no start) — causa: node:sqlite experimental dependia da versão do Node
+- [x] CORREÇÃO (commit 548e089): server.js usa @libsql/client nos DOIS modos (Turso ou file: local);
+      NODE_VERSION 22. Regressão local 14/14 ok. Push feito → Render redeploya sozinho.
+- [ ] PENDENTE: confirmar que o redeploy passou; conferir se TURSO_DATABASE_URL e TURSO_AUTH_TOKEN
+      estão setadas no Render (Environment). Se vazias, app roda em modo file efêmero — setar as 2.
+- [ ] Depois: testar login em produção (onrender.com) e trocar senhas demo123
 
 ## Fase 5 — Pronto para produção
 
