@@ -23,38 +23,36 @@ const USANDO_TURSO = Boolean(process.env.TURSO_DATABASE_URL);
 let bd; // { consulta(sql,args)=>rows, executa(sql,args)=>{changes}, fecha() }
 
 async function iniciarBanco() {
+  // Uma única biblioteca (@libsql/client) para os dois modos, evitando
+  // depender de APIs experimentais do Node. Turso = URL libsql://... na nuvem;
+  // local = arquivo file:dados/clinica.db.
+  const { createClient } = require("@libsql/client");
+  let cliente;
+
   if (USANDO_TURSO) {
-    const { createClient } = require("@libsql/client");
-    const cliente = createClient({
+    cliente = createClient({
       url: process.env.TURSO_DATABASE_URL,
       authToken: process.env.TURSO_AUTH_TOKEN,
     });
-    bd = {
-      consulta: async (sql, args = []) => (await cliente.execute({ sql, args })).rows,
-      executa: async (sql, args = []) => {
-        const r = await cliente.execute({ sql, args });
-        return { changes: r.rowsAffected };
-      },
-      fecha: () => cliente.close(),
-    };
     console.log("Banco: Turso (nuvem).");
   } else {
     const fs = require("fs");
-    const { DatabaseSync } = require("node:sqlite");
     const pasta = path.join(__dirname, "dados");
     if (!fs.existsSync(pasta)) fs.mkdirSync(pasta);
-    const db = new DatabaseSync(path.join(pasta, "clinica.db"));
-    db.exec("PRAGMA journal_mode = WAL;");
-    bd = {
-      consulta: async (sql, args = []) => db.prepare(sql).all(...args),
-      executa: async (sql, args = []) => {
-        const r = db.prepare(sql).run(...args);
-        return { changes: r.changes };
-      },
-      fecha: () => db.close(),
-    };
+    // URL de arquivo com barras normais (compatível com Windows e Linux)
+    const arquivo = path.join(pasta, "clinica.db").replace(/\\/g, "/");
+    cliente = createClient({ url: "file:" + arquivo });
     console.log("Banco: SQLite local (dados/clinica.db).");
   }
+
+  bd = {
+    consulta: async (sql, args = []) => (await cliente.execute({ sql, args })).rows,
+    executa: async (sql, args = []) => {
+      const r = await cliente.execute({ sql, args });
+      return { changes: Number(r.rowsAffected || 0) };
+    },
+    fecha: () => cliente.close(),
+  };
 
   const tabelas = [
     `CREATE TABLE IF NOT EXISTS usuarios (
