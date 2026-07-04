@@ -313,6 +313,7 @@ img { max-width: 100%; display: block; }
   opacity: 0.95;
   z-index: 1;
 }
+.hero-ilustra { width: 62%; height: auto; z-index: 1; opacity: 0.96; }
 .anel {
   position: absolute;
   border: 2px dashed rgba(255, 255, 255, 0.35);
@@ -508,6 +509,19 @@ img { max-width: 100%; display: block; }
 }
 .tratamento:hover { transform: translateY(-5px); box-shadow: var(--sombra-alta); border-color: var(--verde-2); }
 .tratamento h3 { font-size: 1.35rem; }
+.tratamento .icone {
+  width: 56px;
+  height: 56px;
+  border-radius: 50% 50% 50% 10px;
+  background: var(--verde-claro);
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.tratamento .icone svg { width: 28px; height: 28px; }
+.tratamento:hover .icone { background: var(--verde); color: #fff; transition: background 0.3s, color 0.3s; }
 .tratamento .tag {
   display: inline-block;
   background: var(--grad);
