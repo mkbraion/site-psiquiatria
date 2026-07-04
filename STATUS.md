@@ -25,6 +25,16 @@
 - H1 de contato.html → "Vamos conversar"; labels trocados também no rodapé (consistência)
 - Verificado por inspect (screenshots do preview travando por animações) + confirmado no ar em produção
 
+## Fase 8 — Fim da "cara de IA": ícones desenhados + hero editorial
+- Emojis dos cards trocados por ícones de linha SVG (stroke currentColor):
+  index (ondas/broto/alvo/lua/tigela), sobre (ouvido/frasco/nós), atendimento (pin/monitor)
+- .card .icone: selo suave (verde-claro, canto assimétrico como o monograma), ícone verde,
+  hover preenche; etapas de atendimento viraram dígitos em serifa (1–4)
+- Hero: h1 em serifa Fraunces (clamp 2.4–3.7rem); .selo virou kicker editorial (régua + caixa-alta)
+- hero-chips com ícone SVG no lugar de 💻/🌿
+- Confirmado no ar: 7 svgs de ícone na home, Fraunces no <head>. (Emojis mantidos só nas abas do
+  painel interno e no link "🔒 Área restrita" do rodapé — contexto interno, sem impacto na vitrine.)
+
 ## Fase 6 — Hospedagem grátis (Render + Turso)
 
 - [x] server.js refatorado para camada de banco dual: TURSO_DATABASE_URL definida → @libsql/client
