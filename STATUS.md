@@ -4,9 +4,18 @@
 > Se a sessão anterior foi interrompida, leia este arquivo e o README.md e continue de onde
 > parou, sem precisar perguntar nada ao usuário.
 
-**Última atualização:** 2026-07-03
-**Estado geral:** ✅ CÓDIGO PRONTO (fase 6 — hospedagem grátis preparada; falta só o usuário criar
-as contas Turso + Render e informar/colar as 2 variáveis — ver README "Hospedagem GRÁTIS")
+**Última atualização:** 2026-07-04
+**Estado geral:** ✅✅ NO AR — sistema completo publicado e funcional em produção (grátis)
+
+## 🌐 PRODUÇÃO (Render + Turso)
+- URL: https://site-psiquiatria.onrender.com  (site público + área restrita /login.html)
+- Banco: Turso libsql://psiquiatria-mkbraion.aws-us-east-1.turso.io (região Virginia)
+- Testado em produção 2026-07-04: login 200, listar/criar/apagar paciente com persistência real no Turso.
+- Causa das 2 falhas iniciais: (1) node:sqlite experimental dependia da versão do Node → trocado por
+  @libsql/client nos dois modos; (2) erro 400 do Turso por espaço/quebra no token → resolvido com .trim().
+- Plano grátis do Render dorme após 15 min (1º acesso ~50s). Dados ficam no Turso, não somem.
+- PENDENTE (recomendado): trocar as senhas demo123 no painel (botão "Senha"); personalizar
+  nome/CRM/contatos para o cliente final; SEED_DEMO=0 se quiser começar sem pacientes fictícios.
 
 ## Fase 6 — Hospedagem grátis (Render + Turso)
 
