@@ -64,7 +64,8 @@ Hospedagens grátis não têm disco permanente, então o banco vai para o **Turs
 As duas contas são grátis, com **login via GitHub e sem cartão de crédito**:
 
 1. **Turso** (banco): crie conta em [turso.tech](https://turso.tech) → *Create Database*
-   (região `gru` = São Paulo) → copie a **URL** (`libsql://...`) e gere um **token** (*Create Token*).
+   (região mais próxima do Brasil disponível: **US East / Virginia**) → copie a **URL**
+   (`libsql://...`) e gere um **token** (*Create Token*).
 2. **Render** (servidor): crie conta em [render.com](https://render.com) → *New → Blueprint* →
    conecte o repositório `mkbraion/site-psiquiatria` (o arquivo `render.yaml` configura tudo) →
    cole as duas variáveis do Turso quando o painel pedir → *Apply*.
