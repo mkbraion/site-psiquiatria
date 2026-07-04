@@ -116,84 +116,122 @@ img { max-width: 100%; display: block; }
 }
 .btn-claro:hover { border-color: var(--verde-2); filter: none; }
 
-/* ===== Cabeçalho flutuante (pill) ===== */
+/* ===== Cabeçalho editorial ===== */
 .topo {
   position: sticky;
-  top: 14px;
+  top: 0;
   z-index: 90;
   background: transparent;
-  padding: 0 16px;
+  border-bottom: 1px solid transparent;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.topo.rolado {
+  background: rgba(247, 248, 245, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: var(--borda);
+  box-shadow: 0 6px 26px rgba(34, 61, 51, 0.05);
 }
 .topo-inner {
-  max-width: 1100px;
+  max-width: 1180px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  min-height: 66px;
-  padding: 0 12px 0 26px;
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 999px;
-  box-shadow: 0 8px 30px rgba(34, 61, 51, 0.1);
-  transition: box-shadow 0.3s;
+  gap: 26px;
+  min-height: 80px;
+  padding: 0 26px;
+  position: relative;
 }
-.topo.rolado .topo-inner { box-shadow: 0 12px 36px rgba(34, 61, 51, 0.18); }
 
-.logo {
-  font-family: "Sora", sans-serif;
-  font-size: 1.05rem;
-  font-weight: 700;
+/* marca com monograma ψ */
+.logo { display: inline-flex; align-items: center; gap: 13px; text-decoration: none; }
+.logo .mono {
+  width: 44px;
+  height: 44px;
+  border-radius: 50% 50% 50% 8px;
+  display: grid;
+  place-items: center;
+  background: var(--grad);
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.5rem;
+  line-height: 1;
+  flex: none;
+  box-shadow: 0 6px 16px rgba(62, 107, 92, 0.28);
+}
+.logo .marca {
+  font-family: "Fraunces", "Lora", Georgia, serif;
+  font-size: 1.16rem;
+  font-weight: 600;
   color: var(--verde-escuro);
-  text-decoration: none;
-  line-height: 1.15;
+  line-height: 1.05;
   letter-spacing: -0.01em;
 }
-.logo span {
+.logo .marca span {
   display: block;
   font-family: "Inter", sans-serif;
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
-  background: var(--grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--verde-2);
+  margin-top: 3px;
 }
 
-.nav { display: flex; align-items: center; gap: 4px; }
-.nav a {
+/* navegação editorial — sublinhado que cresce da esquerda */
+.nav { display: flex; align-items: center; gap: 28px; }
+.nav a:not(.btn-nav) {
+  position: relative;
   text-decoration: none;
   color: var(--texto);
   font-weight: 500;
-  font-size: 0.92rem;
-  padding: 8px 14px;
-  border-radius: 999px;
-  transition: background 0.2s, color 0.2s;
+  font-size: 0.96rem;
+  padding: 4px 1px;
+  transition: color 0.2s;
 }
-.nav a:hover { background: var(--verde-claro); color: var(--verde-escuro); }
-.nav a.ativo { background: var(--verde-claro); color: var(--verde-escuro); font-weight: 600; }
+.nav a:not(.btn-nav)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 2px;
+  width: 100%;
+  background: var(--verde);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav a:not(.btn-nav):hover { color: var(--verde-escuro); }
+.nav a:not(.btn-nav):hover::after,
+.nav a.ativo:not(.btn-nav)::after { transform: scaleX(1); }
+.nav a.ativo:not(.btn-nav) { color: var(--verde-escuro); font-weight: 600; }
+
+/* CTA com seta */
 .nav .btn-nav {
-  background: var(--grad);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--verde-escuro);
   color: #fff;
-  padding: 10px 22px;
-  margin-left: 8px;
+  text-decoration: none;
+  padding: 11px 22px;
+  border-radius: 12px;
   font-weight: 600;
-  box-shadow: 0 6px 16px rgba(62, 107, 92, 0.3);
+  font-size: 0.93rem;
+  transition: background 0.2s, gap 0.2s;
 }
-.nav .btn-nav:hover { background: var(--grad); color: #fff; transform: translateY(-2px); }
+.nav .btn-nav::after { content: "→"; font-size: 1.05em; transition: transform 0.2s; }
+.nav .btn-nav:hover { background: var(--verde); }
+.nav .btn-nav:hover::after { transform: translateX(3px); }
 
 .menu-btn {
   display: none;
-  background: var(--verde-claro);
-  border: none;
-  border-radius: 999px;
-  font-size: 1.25rem;
-  padding: 8px 16px;
+  background: none;
+  border: 1.5px solid var(--borda);
+  border-radius: 12px;
+  font-size: 1.2rem;
+  padding: 7px 14px;
   color: var(--verde-escuro);
   cursor: pointer;
 }
