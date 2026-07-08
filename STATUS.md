@@ -25,6 +25,14 @@
 - H1 de contato.html → "Vamos conversar"; labels trocados também no rodapé (consistência)
 - Verificado por inspect (screenshots do preview travando por animações) + confirmado no ar em produção
 
+## Fase 9 — Servidor sempre no ar (keep-alive gratuito)
+- Endpoint leve GET /healthz ("ok", sem tocar no banco)
+- Workflow .github/workflows/keepalive.yml: cron */10 min + workflow_dispatch pinga /healthz
+  para o plano free do Render não hibernar → consultório 24/7, sem custo
+- Validado 2026-07-08: run manual concluída com "Resposta: 200"
+- Caveat: cron do GitHub pode atrasar alguns min (raramente dorme e acorda em ~50s);
+  para cliente pagante, Render Starter US$7/mês é à prova de falhas. Domínio próprio = passo opcional.
+
 ## Fase 8 — Fim da "cara de IA": ícones desenhados + hero editorial
 - Emojis dos cards trocados por ícones de linha SVG (stroke currentColor):
   index (ondas/broto/alvo/lua/tigela), sobre (ouvido/frasco/nós), atendimento (pin/monitor)
