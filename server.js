@@ -236,6 +236,10 @@ app.use((req, res, next) => {
   next();
 });
 
+// --- batimento (keep-alive): resposta leve, sem tocar no banco,
+//     usada pelo robô do GitHub para o servidor não hibernar ---
+app.get("/healthz", (req, res) => res.type("text").send("ok"));
+
 // --- autenticação ---
 app.post("/api/entrar", limitaLogin, roda(async (req, res) => {
   const { usuario, senha } = req.body || {};
